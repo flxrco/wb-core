@@ -1,6 +1,6 @@
 import IQuote from 'src/interfaces/business-models/quote.interface'
 import { prop } from '@typegoose/typegoose'
-import SubmitInfo from './submit-info.class'
+import ApprovalStatus from './approval-status.class'
 import Receive from './receive.class'
 
 export default class Quote implements IQuote {
@@ -14,7 +14,7 @@ export default class Quote implements IQuote {
   public yearOverride?: number
 
   @prop({ required: true })
-  public submission!: SubmitInfo
+  public submission!: ApprovalStatus
 
   @prop({ required: true, default: () => [] })
   public receives!: Receive[]
