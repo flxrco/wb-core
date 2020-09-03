@@ -1,6 +1,6 @@
 export default interface IReceive {
   receiverId: string
-  receiveDt: string
+  receiveDt: Date
 
   serverId: string
   channelId: string
