@@ -1,0 +1,16 @@
+import IApprovalStatus from 'src/interfaces/business-models/approval-status.interface'
+import { prop } from '@typegoose/typegoose'
+
+export default class ApprovalStatusClass implements IApprovalStatus {
+  @prop()
+  public approveDt?: Date
+
+  @prop({ required: true })
+  public messageId!: string
+
+  @prop({ required: true })
+  public serverId!: string
+
+  @prop({ required: true })
+  public channelId!: string
+}

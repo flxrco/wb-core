@@ -1,4 +1,4 @@
-export default interface ISubmitInfo {
+export default interface IApprovalStatus {
   // if truthy, then the quote was approved
   approveDt?: Date
 
@@ -6,7 +6,4 @@ export default interface ISubmitInfo {
   messageId: string
   serverId: string
   channelId: string
-
-  submitterId: string
-  submitDt: Date
 }

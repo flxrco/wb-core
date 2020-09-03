@@ -1,15 +1,11 @@
-import ISubmitInfo from './submit-info.interface'
-import IReceive from './receive.interface'
-
 export default interface IQuote {
   content: string
 
-  // one of these two
-  authorId?: string
-  authorStr?: string
+  authorId: string
 
-  yearOverride?: number // 1970 - current
+  // 1970 - current
+  yearOverride?: number
 
-  submission: ISubmitInfo
-  receives: IReceive[]
+  submitterId: string
+  submitDt: Date
 }
