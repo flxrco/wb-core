@@ -1,4 +1,4 @@
-import IQuote from 'src/interfaces/quote.interface'
+import IQuote from 'src/interfaces/business-models/quote.interface'
 import { prop } from '@typegoose/typegoose'
 import SubmitInfo from './submit-info.class'
 import Receive from './receive.class'

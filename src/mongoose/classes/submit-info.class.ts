@@ -1,4 +1,4 @@
-import ISubmitInfo from 'src/interfaces/submit-info.interface'
+import ISubmitInfo from 'src/interfaces/business-models/submit-info.interface'
 import { prop } from '@typegoose/typegoose'
 
 export default class SubmitInfoClass implements ISubmitInfo {
