@@ -1,4 +1,4 @@
-import IQuote from 'src/interfaces/business-models/quote.interface'
+import IQuote from '../models/quote.interface'
 
 export default interface QuoteReceiveInteractor {
   receiveQuote: (args: IReceiveQuoteInput) => Promise<IReceiveQuoteOutput>

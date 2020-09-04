@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose'
-import IReceive from 'src/interfaces/business-models/receive.interface'
+import IReceive from 'src/common/interfaces/models/receive.interface'
 
 export default class ReceiveClass implements IReceive {
   @prop({ required: true })

@@ -1,5 +1,5 @@
-import IApprovalStatus from 'src/interfaces/business-models/approval-status.interface'
-import IQuote from 'src/interfaces/business-models/quote.interface'
+import IQuote from '../models/quote.interface'
+import IApprovalStatus from '../models/approval-status.interface'
 
 export default interface IQuoteSubmitInteractor {
   submitQuote: (args: ISubmitQuoteInput) => Promise<ISubmitQuoteOutput>

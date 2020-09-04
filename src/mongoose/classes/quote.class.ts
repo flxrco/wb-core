@@ -1,7 +1,7 @@
-import IQuote from 'src/interfaces/business-models/quote.interface'
 import { prop } from '@typegoose/typegoose'
 import ApprovalStatus from './approval-status.class'
 import Receive from './receive.class'
+import IQuote from 'src/common/interfaces/models/quote.interface'
 
 export default class Quote implements IQuote {
   @prop({ required: true })

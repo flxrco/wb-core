@@ -1,4 +1,4 @@
-import IApprovalStatus from 'src/interfaces/business-models/approval-status.interface'
+import IApprovalStatus from 'src/common/interfaces/models/approval-status.interface'
 import { prop } from '@typegoose/typegoose'
 
 export default class ApprovalStatusClass implements IApprovalStatus {
