@@ -30,7 +30,7 @@ export default class QuoteClass extends TypegooseBase implements IQuote {
     return this._id.toHexString()
   }
 
-  get baseData(): IQuote {
+  get dto(): IQuote {
     const {
       content,
       authorId,

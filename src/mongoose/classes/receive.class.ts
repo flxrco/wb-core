@@ -21,4 +21,24 @@ export default class ReceiveClass extends TypegooseBase implements IReceive {
   get receiveId() {
     return this._id.toHexString()
   }
+
+  get dto(): IReceive {
+    const {
+      receiverId,
+      receiveDt,
+      serverId,
+      channelId,
+      messageId,
+      receiveId,
+    } = this
+
+    return {
+      receiverId,
+      receiveDt,
+      serverId,
+      channelId,
+      messageId,
+      receiveId,
+    }
+  }
 }
