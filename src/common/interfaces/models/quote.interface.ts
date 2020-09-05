@@ -1,4 +1,8 @@
-export default interface IQuote {
+export default interface IQuote extends IBaseQuote {
+  quoteId: string
+}
+
+export interface IBaseQuote {
   content: string
 
   authorId: string
@@ -8,6 +12,4 @@ export default interface IQuote {
 
   submitterId: string
   submitDt: Date
-
-  quoteId: string
 }
