@@ -31,14 +31,12 @@ export class QuoteSubmitInteractorService extends QuoteSubmitInteractor {
       'approvalStatus.messageId': messageId,
     }).exec()
 
-    if (quote.approvalStatus.approveDt) {
-      throw new InteractorError(
-        InteractorErrorCodes.ATTEMPTED_TO_APPROVE_ALREADY_APPROVED_QUOTE
-      )
+    if (!quote) {
+      throw new InteractorError(InteractorErrorCodes.QUOTE_NOT_FOUND)
+    } else if (quote.approvalStatus.approveDt) {
+      throw new InteractorError(InteractorErrorCodes.QUOTE_APPROVED)
     } else if (new Date().getTime() > quote.approvalStatus.expireDt.getTime()) {
-      throw new InteractorError(
-        InteractorErrorCodes.ATTEMPTED_TO_APPROVE_EXPIRED_QUOTE
-      )
+      throw new InteractorError(InteractorErrorCodes.QUOTE_EXPIRED)
     }
 
     quote.approvalStatus.approveDt = new Date()
@@ -53,6 +51,7 @@ export class QuoteSubmitInteractorService extends QuoteSubmitInteractor {
       'approvalStatus.expireDt': {
         $gt: new Date(),
       },
+      'approvalStatus.approveDt': null,
     }).exec()
 
     return quotes.map(q => {
