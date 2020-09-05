@@ -4,7 +4,7 @@ import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
 import ApprovalStatus from './approval-status.class'
 
-export default class Quote extends TypegooseBase implements IQuote {
+export default class QuoteClass extends TypegooseBase implements IQuote {
   @prop({ required: true })
   public content: string
 
@@ -15,7 +15,7 @@ export default class Quote extends TypegooseBase implements IQuote {
   public yearOverride?: number
 
   @prop({ _id: false })
-  public approvalStatus!: ApprovalStatus
+  public approvalStatus?: ApprovalStatus
 
   @prop({ default: () => [], type: () => Receive })
   public receives?: Receive[]
