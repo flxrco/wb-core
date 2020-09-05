@@ -1,8 +1,8 @@
-import { prop } from '@typegoose/typegoose'
-import Receive from './receive.class'
+import { prop, mongoose, DocumentType } from '@typegoose/typegoose'
 import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
 import ApprovalStatus from './approval-status.class'
+import ReceiveSchema from './receive.class'
 
 export default class QuoteClass extends TypegooseBase implements IQuote {
   @prop({ required: true })
@@ -17,8 +17,8 @@ export default class QuoteClass extends TypegooseBase implements IQuote {
   @prop({ _id: false })
   public approvalStatus?: ApprovalStatus
 
-  @prop({ default: () => [], type: () => Receive })
-  public receives?: Receive[]
+  @prop({ type: () => ReceiveSchema })
+  public receives?: mongoose.Types.DocumentArray<DocumentType<ReceiveSchema>>
 
   @prop({ required: true })
   public submitterId!: string

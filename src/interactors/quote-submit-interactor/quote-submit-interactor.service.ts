@@ -37,6 +37,7 @@ export class QuoteSubmitInteractorService extends QuoteSubmitInteractor {
     }
 
     const { quoteId } = quote
+    console.debug(quote)
     const approvalStatus = await this.quoteRepo.getQuoteApprovalStatus(quoteId)
 
     if (approvalStatus.approveDt) {

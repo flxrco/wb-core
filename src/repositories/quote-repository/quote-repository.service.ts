@@ -12,20 +12,20 @@ export class QuoteRepositoryService extends QuoteRepository {
   }
 
   async getQuoteById(quoteId: string) {
-    return await QuoteModel.findById(quoteId)
-      .lean()
-      .exec()
+    const quote = await QuoteModel.findById(quoteId).exec()
+
+    return quote.baseData
   }
 
   async getQuoteByMessageId(messageId: string) {
-    return await QuoteModel.findOne({
+    const quote = await QuoteModel.findOne({
       approvalStatus: {
         $ne: null,
       },
       'approvalStatus.messageId': messageId,
-    })
-      .lean()
-      .exec()
+    }).exec()
+
+    return quote.baseData
   }
 
   async getQuoteApprovalStatus(quoteId: string) {
@@ -62,5 +62,19 @@ export class QuoteRepositoryService extends QuoteRepository {
       quote,
       approvalStatus,
     }))
+  }
+
+  async getRandomQuote(serverId: string) {
+    const quote = await QuoteModel.findOne({
+      approvalStatus: {
+        $ne: null,
+      },
+      'approvalStatus.approveDt': {
+        $ne: null,
+      },
+      'approvalStatus.serverId': serverId,
+    }).exec()
+
+    return quote.baseData
   }
 }

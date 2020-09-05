@@ -42,6 +42,8 @@ export default abstract class QuoteRepository {
    * @param serverId
    */
   abstract getPendingQuotes(serverId: string): Promise<IPendingQuote[]>
+
+  abstract getRandomQuote(serverId: string): Promise<IQuote>
 }
 
 interface IPendingQuote {
