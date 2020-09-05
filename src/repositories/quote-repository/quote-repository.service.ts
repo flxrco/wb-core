@@ -8,13 +8,13 @@ import IApprovalStatus from 'src/common/interfaces/models/approval-status.interf
 export class QuoteRepositoryService extends QuoteRepository {
   async createQuote(quote: IBaseQuote) {
     const newQuote = await QuoteModel.create(quote)
-    return newQuote.baseData
+    return newQuote.dto
   }
 
   async getQuoteById(quoteId: string) {
     const quote = await QuoteModel.findById(quoteId).exec()
 
-    return quote.baseData
+    return quote.dto
   }
 
   async getQuoteByMessageId(messageId: string) {
@@ -25,7 +25,7 @@ export class QuoteRepositoryService extends QuoteRepository {
       'approvalStatus.messageId': messageId,
     }).exec()
 
-    return quote.baseData
+    return quote.dto
   }
 
   async getQuoteApprovalStatus(quoteId: string) {
@@ -58,14 +58,14 @@ export class QuoteRepositoryService extends QuoteRepository {
       },
     }).exec()
 
-    return data.map(({ baseData: quote, approvalStatus }) => ({
+    return data.map(({ dto: quote, approvalStatus }) => ({
       quote,
       approvalStatus,
     }))
   }
 
   async getRandomQuote(serverId: string) {
-    const quote = await QuoteModel.findOne({
+    const queryParams = {
       approvalStatus: {
         $ne: null,
       },
@@ -73,8 +73,20 @@ export class QuoteRepositoryService extends QuoteRepository {
         $ne: null,
       },
       'approvalStatus.serverId': serverId,
-    }).exec()
+    }
 
-    return quote.baseData
+    const count = await QuoteModel.countDocuments(queryParams).exec()
+
+    if (!count) {
+      return null
+    }
+
+    const rand = Math.floor(Math.random() * count)
+
+    const quote = await QuoteModel.findOne(queryParams)
+      .skip(rand)
+      .exec()
+
+    return quote.dto
   }
 }
