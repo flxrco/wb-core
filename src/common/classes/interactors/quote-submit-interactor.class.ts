@@ -3,7 +3,7 @@ import IQuote from 'src/common/interfaces/models/quote.interface'
 
 export default abstract class QuoteSubmitInteractor {
   abstract submitQuote(input: ISubmitQuoteInput): Promise<ISubmitQuoteOutput>
-  abstract approveQuote(id: string): Promise<IApproveQuoteOutput>
+  abstract approveQuote(messageId: string): Promise<IApproveQuoteOutput>
   abstract getPendingQuotes(serverId: string): Promise<IGetPendingQuotesOutput>
 }
 
@@ -16,10 +16,9 @@ export interface ISubmitQuoteInput extends IQuote {
   serverId: string
   messageId: string
   channelId: string
+  expireDt: Date
 }
 
-export interface IApproveQuoteOutput extends IQuote {
-  approvedAt: Date
-}
-
+export type IApproveQuoteOutput = IQuote
 export type IGetPendingQuotesOutput = ISubmitQuoteOutput[]
+export type IFindQuoteByMessageIdOutput = IQuote
