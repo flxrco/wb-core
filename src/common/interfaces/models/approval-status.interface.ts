@@ -6,4 +6,6 @@ export default interface IApprovalStatus {
   messageId: string
   serverId: string
   channelId: string
+
+  expireDt: Date
 }

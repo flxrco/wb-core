@@ -1,8 +1,8 @@
 import { prop } from '@typegoose/typegoose'
-import ApprovalStatus from './approval-status.class'
 import Receive from './receive.class'
 import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
+import ApprovalStatus from './approval-status.class'
 
 export default class Quote extends TypegooseBase implements IQuote {
   @prop({ required: true })
@@ -14,11 +14,11 @@ export default class Quote extends TypegooseBase implements IQuote {
   @prop()
   public yearOverride?: number
 
-  @prop({ required: true })
-  public submission!: ApprovalStatus
+  @prop({ _id: false })
+  public approvalStatus!: ApprovalStatus
 
-  @prop({ required: true, default: () => [] })
-  public receives!: Receive[]
+  @prop({ default: () => [], type: () => Receive })
+  public receives?: Receive[]
 
   @prop({ required: true })
   public submitterId!: string
@@ -28,5 +28,25 @@ export default class Quote extends TypegooseBase implements IQuote {
 
   public get quoteId() {
     return this._id.toHexString()
+  }
+
+  get baseData(): IQuote {
+    const {
+      content,
+      authorId,
+      yearOverride,
+      submitterId,
+      submitDt,
+      quoteId,
+    } = this
+
+    return {
+      content,
+      authorId,
+      yearOverride,
+      submitterId,
+      submitDt,
+      quoteId,
+    }
   }
 }
