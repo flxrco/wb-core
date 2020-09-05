@@ -1,10 +1,20 @@
-import { prop, mongoose, DocumentType } from '@typegoose/typegoose'
+import {
+  prop,
+  mongoose,
+  DocumentType,
+  modelOptions,
+} from '@typegoose/typegoose'
 import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
-import ApprovalStatus from './approval-status.class'
-import ReceiveSchema from './receive.class'
+import ApprovalStatus from './approval-status-schema.class'
+import ReceiveSchema from './receive-schema.class'
 
-export default class QuoteClass extends TypegooseBase implements IQuote {
+@modelOptions({
+  options: {
+    customName: 'quotes',
+  },
+})
+export default class QuoteSchema extends TypegooseBase implements IQuote {
   @prop({ required: true })
   public content: string
 

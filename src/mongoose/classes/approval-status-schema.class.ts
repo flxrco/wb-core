@@ -1,14 +1,14 @@
 import IApprovalStatus from 'src/common/interfaces/models/approval-status.interface'
 import { prop } from '@typegoose/typegoose'
 
-export default class ApprovalStatusClass implements IApprovalStatus {
+export default class ApprovalStatusSchema implements IApprovalStatus {
   @prop({ required: true })
   public expireDt!: Date
 
   @prop()
   public approveDt?: Date
 
-  @prop({ required: true })
+  @prop({ required: true, unique: true })
   public messageId!: string
 
   @prop({ required: true })

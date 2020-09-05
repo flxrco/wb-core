@@ -1,5 +1,5 @@
 import { getModelForClass } from '@typegoose/typegoose'
-import QuoteClass from '../classes/quote.class'
+import QuoteSchema from '../classes/quote-schema.class'
 
-const QuoteModel = getModelForClass(QuoteClass)
+const QuoteModel = getModelForClass(QuoteSchema)
 export default QuoteModel

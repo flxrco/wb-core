@@ -2,7 +2,7 @@ import { prop } from '@typegoose/typegoose'
 import IReceive from 'src/common/interfaces/models/receive.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
 
-export default class ReceiveClass extends TypegooseBase implements IReceive {
+export default class ReceiveSchema extends TypegooseBase implements IReceive {
   @prop({ required: true })
   public receiverId!: string
 
