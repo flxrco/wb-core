@@ -5,4 +5,6 @@ export default interface IReceive {
   serverId: string
   channelId: string
   messageId: string
+
+  receiveId: string
 }

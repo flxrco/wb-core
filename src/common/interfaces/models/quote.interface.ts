@@ -8,4 +8,6 @@ export default interface IQuote {
 
   submitterId: string
   submitDt: Date
+
+  quoteId: string
 }

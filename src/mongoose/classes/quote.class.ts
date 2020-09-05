@@ -2,8 +2,9 @@ import { prop } from '@typegoose/typegoose'
 import ApprovalStatus from './approval-status.class'
 import Receive from './receive.class'
 import IQuote from 'src/common/interfaces/models/quote.interface'
+import TypegooseBase from '../utils/typegoose-base.class'
 
-export default class Quote implements IQuote {
+export default class Quote extends TypegooseBase implements IQuote {
   @prop({ required: true })
   public content: string
 
@@ -24,4 +25,8 @@ export default class Quote implements IQuote {
 
   @prop({ required: true })
   public submitDt!: Date
+
+  public get quoteId() {
+    return this._id.toHexString()
+  }
 }
