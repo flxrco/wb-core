@@ -11,7 +11,6 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "composite": true,
-    "rootDir": "./src"
+    "composite": true
   }
 }
