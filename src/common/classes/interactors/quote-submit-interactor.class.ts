@@ -1,5 +1,7 @@
 import IApprovalStatus from 'src/common/interfaces/models/approval-status.interface'
-import IQuote from 'src/common/interfaces/models/quote.interface'
+import IQuote, {
+  IBaseQuote,
+} from 'src/common/interfaces/models/quote.interface'
 
 export default abstract class QuoteSubmitInteractor {
   abstract submitQuote(input: ISubmitQuoteInput): Promise<ISubmitQuoteOutput>
@@ -12,7 +14,7 @@ export interface ISubmitQuoteOutput {
   approvalStatus: IApprovalStatus
 }
 
-export interface ISubmitQuoteInput extends IQuote {
+export interface ISubmitQuoteInput extends IBaseQuote {
   serverId: string
   messageId: string
   channelId: string

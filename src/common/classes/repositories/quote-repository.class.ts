@@ -1,4 +1,6 @@
-import IQuote from 'src/common/interfaces/models/quote.interface'
+import IQuote, {
+  IBaseQuote,
+} from 'src/common/interfaces/models/quote.interface'
 import IApprovalStatus from 'src/common/interfaces/models/approval-status.interface'
 
 export default abstract class QuoteRepository {
@@ -25,7 +27,7 @@ export default abstract class QuoteRepository {
    * Pushes a new quote into the DB.
    * @param quote
    */
-  abstract createQuote(quote: IQuote): Promise<IQuote>
+  abstract createQuote(quote: IBaseQuote): Promise<IQuote>
 
   /**
    * Sets the approval status of a given quote.

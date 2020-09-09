@@ -8,7 +8,7 @@ export default class ApprovalStatusSchema implements IApprovalStatus {
   @prop()
   public approveDt?: Date
 
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   public messageId!: string
 
   @prop({ required: true })
