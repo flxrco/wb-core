@@ -1,26 +1,14 @@
-import IApprovalStatus from 'src/common/interfaces/models/approval-status.interface'
-import IQuote, {
-  IBaseQuote,
-} from 'src/common/interfaces/models/quote.interface'
+import { IBaseQuote } from 'src/common/interfaces/models/quote.interface'
+import { IPendingQuote } from './quote-watch-interactor.class'
+import IApprovalRequirements from 'src/common/interfaces/models/approval-requirements.interface'
 
 export default abstract class QuoteSubmitInteractor {
-  abstract submitQuote(input: ISubmitQuoteInput): Promise<ISubmitQuoteOutput>
-  abstract approveQuote(messageId: string): Promise<IApproveQuoteOutput>
-  abstract getPendingQuotes(serverId: string): Promise<IGetPendingQuotesOutput>
+  abstract submitQuote(input: ISubmitQuoteInput): Promise<IPendingQuote>
 }
 
-export interface ISubmitQuoteOutput {
-  quote: IQuote
-  approvalStatus: IApprovalStatus
-}
-
-export interface ISubmitQuoteInput extends IBaseQuote {
+export interface ISubmitQuoteInput extends IBaseQuote, IApprovalRequirements {
   serverId: string
   messageId: string
   channelId: string
   expireDt: Date
 }
-
-export type IApproveQuoteOutput = IQuote
-export type IGetPendingQuotesOutput = ISubmitQuoteOutput[]
-export type IFindQuoteByMessageIdOutput = IQuote
