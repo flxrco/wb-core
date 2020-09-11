@@ -12,14 +12,4 @@ export class QuoteSubmitController {
   async submitQuote(@Payload() input: ISubmitQuoteInput) {
     return await this.interactor.submitQuote(input)
   }
-
-  @MessagePattern(MicroserviceMessages.GET_PENDING_QUOTES)
-  async getPendingQuotes(@Payload() serverId: string) {
-    return await this.interactor.getPendingQuotes(serverId)
-  }
-
-  @MessagePattern(MicroserviceMessages.APPROVE_QUOTE)
-  async approveQuote(@Payload() messageId: string) {
-    return await this.interactor.approveQuote(messageId)
-  }
 }

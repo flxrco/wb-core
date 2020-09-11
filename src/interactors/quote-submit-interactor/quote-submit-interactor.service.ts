@@ -1,57 +1,34 @@
 import { Injectable } from '@nestjs/common'
 import QuoteSubmitInteractor, {
   ISubmitQuoteInput,
-  ISubmitQuoteOutput,
-  IApproveQuoteOutput,
-  IGetPendingQuotesOutput,
 } from 'src/common/classes/interactors/quote-submit-interactor.class'
-import InteractorError, {
-  InteractorErrorCodes,
-} from 'src/common/classes/errors/interactor-error.class'
 import QuoteRepository from 'src/common/classes/repositories/quote-repository.class'
+import SubmissionRepository from 'src/common/classes/repositories/submission-repository.class'
+import { IPendingQuote } from 'src/common/classes/interactors/quote-watch-interactor.class'
 
 @Injectable()
 export class QuoteSubmitInteractorService extends QuoteSubmitInteractor {
-  constructor(private quoteRepo: QuoteRepository) {
+  constructor(
+    private quoteRepo: QuoteRepository,
+    private submitRepo: SubmissionRepository
+  ) {
     super()
   }
 
-  async submitQuote(input: ISubmitQuoteInput): Promise<ISubmitQuoteOutput> {
+  async submitQuote(input: ISubmitQuoteInput): Promise<IPendingQuote> {
     const quote = await this.quoteRepo.createQuote(input)
-    const approvalStatus = await this.quoteRepo.setQuoteApprovalStatus(
+
+    const submissionStatus = await this.submitRepo.setSubmissionStatus(
       quote.quoteId,
-      input
+      {
+        ...input,
+        requirements: input,
+      }
     )
 
     return {
       quote,
-      approvalStatus,
+      submissionStatus,
     }
-  }
-
-  async approveQuote(messageId: string): Promise<IApproveQuoteOutput> {
-    const quote = await this.quoteRepo.getQuoteByMessageId(messageId)
-
-    if (!quote) {
-      throw new InteractorError(InteractorErrorCodes.QUOTE_NOT_FOUND)
-    }
-
-    const { quoteId } = quote
-    const approvalStatus = await this.quoteRepo.getQuoteApprovalStatus(quoteId)
-
-    if (approvalStatus.approveDt) {
-      throw new InteractorError(InteractorErrorCodes.QUOTE_APPROVED)
-    } else if (new Date().getTime() > approvalStatus.expireDt.getTime()) {
-      throw new InteractorError(InteractorErrorCodes.QUOTE_EXPIRED)
-    }
-
-    approvalStatus.approveDt = new Date()
-    await this.quoteRepo.setQuoteApprovalStatus(quoteId, approvalStatus)
-
-    return quote
-  }
-
-  async getPendingQuotes(serverId: string): Promise<IGetPendingQuotesOutput> {
-    return await this.quoteRepo.getPendingQuotes(serverId)
   }
 }

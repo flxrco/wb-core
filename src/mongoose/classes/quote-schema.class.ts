@@ -6,8 +6,9 @@ import {
 } from '@typegoose/typegoose'
 import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
-import ApprovalStatus from './approval-status-schema.class'
+import ApprovalStatus from './submission-status-schema.class'
 import ReceiveSchema from './receive-schema.class'
+import _ from 'lodash'
 
 @modelOptions({
   options: {
@@ -16,47 +17,37 @@ import ReceiveSchema from './receive-schema.class'
 })
 export default class QuoteSchema extends TypegooseBase implements IQuote {
   @prop({ required: true })
-  public content: string
+  content: string
 
   @prop({ required: true })
-  public authorId!: string
+  authorId!: string
 
   @prop()
-  public yearOverride?: number
+  yearOverride?: number
 
-  @prop({ _id: false })
-  public approvalStatus?: ApprovalStatus
+  @prop()
+  submissionStatus?: ApprovalStatus
 
   @prop({ type: () => ReceiveSchema })
-  public receives?: mongoose.Types.DocumentArray<DocumentType<ReceiveSchema>>
+  receives?: mongoose.Types.DocumentArray<DocumentType<ReceiveSchema>>
 
   @prop({ required: true })
-  public submitterId!: string
+  submitterId!: string
 
   @prop({ required: true })
-  public submitDt!: Date
+  submitDt!: Date
 
-  public get quoteId() {
-    return this._id.toHexString()
-  }
+  @prop({ required: true, index: true })
+  quoteId!: string
 
-  get dto(): IQuote {
-    const {
-      content,
-      authorId,
-      yearOverride,
-      submitterId,
-      submitDt,
-      quoteId,
-    } = this
-
-    return {
-      content,
-      authorId,
-      yearOverride,
-      submitterId,
-      submitDt,
-      quoteId,
-    }
+  toDto(): IQuote {
+    return _.pick(this, [
+      'content',
+      'authorId',
+      'yearOverride',
+      'submitterId',
+      'submitDt',
+      'quoteId',
+    ])
   }
 }
