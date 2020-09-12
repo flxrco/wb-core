@@ -1,7 +1,6 @@
 import { prop } from '@typegoose/typegoose'
 import IReceive from 'src/common/interfaces/models/receive.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
-import shortid = require('shortid')
 
 export default class ReceiveSchema extends TypegooseBase implements IReceive {
   @prop({ required: true })
@@ -19,6 +18,6 @@ export default class ReceiveSchema extends TypegooseBase implements IReceive {
   @prop({ required: true })
   messageId!: string
 
-  @prop({ required: true, default: () => shortid(), index: true })
+  @prop({ required: true, index: true })
   receiveId!: string
 }

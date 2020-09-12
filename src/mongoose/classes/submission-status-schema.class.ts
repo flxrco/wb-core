@@ -4,7 +4,7 @@ import ApprovalRequirementsSchema from './approval-requirements-schema.class'
 import SubmissionVerdictSchema from './submission-verdict-schema.class'
 import moment = require('moment-timezone')
 import ApprovalCause from 'src/common/enums/approval-cause.enum'
-import _ from 'lodash'
+import _ = require('lodash')
 
 export default class SubmissionStatusSchema implements ISubmissionStatus {
   @prop({ required: true })
@@ -13,7 +13,7 @@ export default class SubmissionStatusSchema implements ISubmissionStatus {
   @prop()
   approveDt?: Date
 
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   messageId!: string
 
   @prop({ required: true })

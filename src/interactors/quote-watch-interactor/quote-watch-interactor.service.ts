@@ -3,7 +3,6 @@ import {
   QuoteWatchInteractor,
   IPendingQuote,
 } from 'src/common/classes/interactors/quote-watch-interactor.class'
-import QuoteRepository from 'src/common/classes/repositories/quote-repository.class'
 import SubmissionRepository from 'src/common/classes/repositories/submission-repository.class'
 import InteractorError, {
   InteractorErrorCodes,
@@ -14,10 +13,7 @@ import RejectionCause from 'src/common/enums/rejection-cause.enum'
 
 @Injectable()
 export class QuoteWatchInteractorService extends QuoteWatchInteractor {
-  constructor(
-    private quoteRepo: QuoteRepository,
-    private submitRepo: SubmissionRepository
-  ) {
+  constructor(private submitRepo: SubmissionRepository) {
     super()
   }
 

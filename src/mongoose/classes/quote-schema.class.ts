@@ -8,7 +8,7 @@ import IQuote from 'src/common/interfaces/models/quote.interface'
 import TypegooseBase from '../utils/typegoose-base.class'
 import ApprovalStatus from './submission-status-schema.class'
 import ReceiveSchema from './receive-schema.class'
-import _ from 'lodash'
+import _ = require('lodash')
 
 @modelOptions({
   options: {

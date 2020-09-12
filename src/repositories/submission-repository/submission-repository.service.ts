@@ -3,6 +3,7 @@ import SubmissionRepository from 'src/common/classes/repositories/submission-rep
 import QuoteModel from 'src/mongoose/models/quote.model'
 import { IBaseSubmissionStatus } from 'src/common/interfaces/models/submission-status.interface'
 import ISubmissionVerdict from 'src/common/interfaces/models/submission-verdict.interface'
+import SubmissionStatusSchema from 'src/mongoose/classes/submission-status-schema.class'
 
 @Injectable()
 export class SubmissionRepositoryService extends SubmissionRepository {
@@ -11,9 +12,9 @@ export class SubmissionRepositoryService extends SubmissionRepository {
       submissionStatus: {
         $ne: null,
       },
-      'approvalStatus.serverId': serverId,
-      'approvalStatus.approveDt': null,
-      'approvalStatus.expireDt': {
+      'submissionStatus.serverId': serverId,
+      'submissionStatus.approveDt': null,
+      'submissionStatus.expireDt': {
         $gt: new Date(),
       },
     }).exec()
@@ -33,7 +34,7 @@ export class SubmissionRepositoryService extends SubmissionRepository {
       submissionStatus: {
         $ne: null,
       },
-      'approvalStatus.messageId': messageId,
+      'submissionStatus.messageId': messageId,
     }).exec()
 
     if (!submission) {
@@ -60,7 +61,9 @@ export class SubmissionRepositoryService extends SubmissionRepository {
       return undefined
     }
 
-    submission.set('submissionStatus', submissionStatus)
+    submission.submissionStatus = new SubmissionStatusSchema()
+    Object.assign(submission.submissionStatus, submissionStatus)
+
     await submission.save()
 
     return submission.submissionStatus.toDto()
