@@ -1,12 +1,14 @@
 import ISubmissionStatus from 'src/common/interfaces/models/submission-status.interface'
-import { prop } from '@typegoose/typegoose'
+import { prop, Prop } from '@typegoose/typegoose'
 import ApprovalRequirementsSchema from './approval-requirements-schema.class'
 import SubmissionVerdictSchema from './submission-verdict-schema.class'
 import moment = require('moment-timezone')
 import ApprovalCause from 'src/common/enums/approval-cause.enum'
 import _ = require('lodash')
+import TypegooseBase from '../utils/typegoose-base.class'
 
-export default class SubmissionStatusSchema implements ISubmissionStatus {
+export default class SubmissionStatusSchema extends TypegooseBase
+  implements ISubmissionStatus {
   @prop({ required: true })
   expireDt!: Date
 
@@ -27,6 +29,9 @@ export default class SubmissionStatusSchema implements ISubmissionStatus {
 
   @prop()
   verdict?: SubmissionVerdictSchema
+
+  @Prop({ default: () => new Date() })
+  messageDt: Date
 
   get isPending() {
     return this.verdict && moment().isBefore(moment(this.expireDt))
@@ -49,6 +54,7 @@ export default class SubmissionStatusSchema implements ISubmissionStatus {
       'isApproved',
       'isPending',
       'requirements',
+      'messageDt',
     ])
   }
 }

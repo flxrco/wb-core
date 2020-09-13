@@ -22,6 +22,7 @@ export class QuoteSubmitInteractorService extends QuoteSubmitInteractor {
       quote.quoteId,
       {
         ...input,
+        messageDt: new Date(),
         requirements: input,
       }
     )
