@@ -13,7 +13,7 @@ export class SubmissionRepositoryService extends SubmissionRepository {
         $ne: null,
       },
       'submissionStatus.serverId': serverId,
-      'submissionStatus.approveDt': null,
+      'submissionStatus.verdict': null,
       'submissionStatus.expireDt': {
         $gt: new Date(),
       },
