@@ -19,7 +19,10 @@ export class QuoteReceiveInteractorService extends QuoteReceiveInteractor {
   }
 
   async receiveQuote(input: IReceiveQuoteInput): Promise<IRecieveQuoteOutput> {
-    const quote = await this.quoteRepo.getRandomQuote(input.serverId)
+    const quote = await this.quoteRepo.getRandomQuote(
+      input.serverId,
+      input.authorId
+    )
     if (!quote) {
       throw new InteractorError(InteractorErrorCodes.NO_AVAILABLE_QUOTES)
     }
