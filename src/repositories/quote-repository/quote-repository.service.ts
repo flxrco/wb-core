@@ -19,9 +19,7 @@ export class QuoteRepositoryService extends QuoteRepository {
   async getRandomQuote(serverId: string) {
     const queryParams = {
       $or: [
-        {
-          submissionStatus: null,
-        },
+        { submissionStatus: null },
         {
           'submissionStatus.verdict': { $ne: null },
           'submissionStatus.verdict.cause': {

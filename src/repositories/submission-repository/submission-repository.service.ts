@@ -12,11 +12,11 @@ export class SubmissionRepositoryService extends SubmissionRepository {
       submissionStatus: {
         $ne: null,
       },
-      'submissionStatus.serverId': serverId,
       'submissionStatus.verdict': null,
       'submissionStatus.expireDt': {
         $gt: new Date(),
       },
+      serverId,
     }).exec()
 
     return pending.map(record => {
