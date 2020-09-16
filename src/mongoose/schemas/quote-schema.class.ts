@@ -40,6 +40,9 @@ export default class QuoteSchema extends TypegooseBase implements IQuote {
   @prop({ required: true, index: true })
   quoteId!: string
 
+  @prop({ required: true })
+  serverId!: string
+
   toDto(): IQuote {
     return _.pick(this, [
       'content',
@@ -48,6 +51,7 @@ export default class QuoteSchema extends TypegooseBase implements IQuote {
       'submitterId',
       'submitDt',
       'quoteId',
+      'serverId',
     ])
   }
 }

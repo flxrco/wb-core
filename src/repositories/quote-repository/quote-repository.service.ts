@@ -3,6 +3,7 @@ import QuoteRepository from 'src/common/classes/repositories/quote-repository.cl
 import { IBaseQuote } from 'src/common/interfaces/models/quote.interface'
 import QuoteModel from 'src/mongoose/models/quote.model'
 import shortid = require('shortid')
+import ApprovalCause from 'src/common/enums/approval-cause.enum'
 
 @Injectable()
 export class QuoteRepositoryService extends QuoteRepository {
@@ -17,13 +18,18 @@ export class QuoteRepositoryService extends QuoteRepository {
 
   async getRandomQuote(serverId: string) {
     const queryParams = {
-      approvalStatus: {
-        $ne: null,
-      },
-      'approvalStatus.approveDt': {
-        $ne: null,
-      },
-      'approvalStatus.serverId': serverId,
+      $or: [
+        {
+          submissionStatus: null,
+        },
+        {
+          'submissionStatus.verdict': { $ne: null },
+          'submissionStatus.verdict.cause': {
+            $in: [ApprovalCause.REQUIREMENTS_MET, ApprovalCause.FORCE_APPROVAL],
+          },
+        },
+      ],
+      serverId,
     }
 
     const count = await QuoteModel.countDocuments(queryParams).exec()

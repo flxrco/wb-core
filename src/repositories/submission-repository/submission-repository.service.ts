@@ -3,7 +3,7 @@ import SubmissionRepository from 'src/common/classes/repositories/submission-rep
 import QuoteModel from 'src/mongoose/models/quote.model'
 import { IBaseSubmissionStatus } from 'src/common/interfaces/models/submission-status.interface'
 import ISubmissionVerdict from 'src/common/interfaces/models/submission-verdict.interface'
-import SubmissionStatusSchema from 'src/mongoose/classes/submission-status-schema.class'
+import SubmissionStatusSchema from 'src/mongoose/schemas/submission-status-schema.class'
 
 @Injectable()
 export class SubmissionRepositoryService extends SubmissionRepository {

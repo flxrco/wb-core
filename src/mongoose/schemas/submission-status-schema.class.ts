@@ -19,9 +19,6 @@ export default class SubmissionStatusSchema extends TypegooseBase
   messageId!: string
 
   @prop({ required: true })
-  serverId!: string
-
-  @prop({ required: true })
   channelId!: string
 
   @prop({ _id: false })
@@ -48,7 +45,6 @@ export default class SubmissionStatusSchema extends TypegooseBase
   toDto(): ISubmissionStatus {
     return _.pick(this, [
       'messageId',
-      'serverId',
       'channelId',
       'expireDt',
       'isApproved',
