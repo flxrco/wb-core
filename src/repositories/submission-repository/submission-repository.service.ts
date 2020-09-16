@@ -7,7 +7,7 @@ import SubmissionStatusSchema from 'src/mongoose/schemas/submission-status-schem
 
 @Injectable()
 export class SubmissionRepositoryService extends SubmissionRepository {
-  async getPendingQuotes(serverId: string) {
+  async getPendingQuotes(serverId: string, blacklistAuthor: string[] = []) {
     const pending = await QuoteModel.find({
       submissionStatus: {
         $ne: null,
@@ -17,6 +17,11 @@ export class SubmissionRepositoryService extends SubmissionRepository {
         $gt: new Date(),
       },
       serverId,
+      authorId: {
+        $not: {
+          $in: blacklistAuthor,
+        },
+      },
     }).exec()
 
     return pending.map(record => {

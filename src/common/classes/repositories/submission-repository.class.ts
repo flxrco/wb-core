@@ -5,7 +5,10 @@ import ISubmissionStatus, {
 import ISubmissionVerdict from 'src/common/interfaces/models/submission-verdict.interface'
 
 export default abstract class SubmissionRepository {
-  abstract getPendingQuotes(serverId: string): Promise<IPendingQuote[]>
+  abstract getPendingQuotes(
+    serverId: string,
+    blacklistAuthor?: string[]
+  ): Promise<IPendingQuote[]>
 
   abstract setSubmissionStatus(
     quoteId: string,

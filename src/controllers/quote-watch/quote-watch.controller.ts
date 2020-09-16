@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common'
 import { MessagePattern, Payload } from '@nestjs/microservices'
 import {
+  IGetPendingQuoteParams,
   IPendingQuote,
   QuoteWatchInteractor,
 } from 'src/common/classes/interactors/quote-watch-interactor.class'
@@ -14,8 +15,8 @@ export class QuoteWatchController extends QuoteWatchInteractor {
   }
 
   @MessagePattern(MicroserviceMessages.GET_PENDING_QUOTES)
-  async getPendingQuotes(@Payload() serverId: string) {
-    return await this.interactor.getPendingQuotes(serverId)
+  async getPendingQuotes(@Payload() params: IGetPendingQuoteParams) {
+    return await this.interactor.getPendingQuotes(params)
   }
 
   @MessagePattern(MicroserviceMessages.APPROVE_QUOTE)

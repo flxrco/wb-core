@@ -14,7 +14,9 @@ export abstract class QuoteWatchInteractor {
    *
    * @param serverId
    */
-  abstract getPendingQuotes(serverId: string): Promise<IPendingQuote[]>
+  abstract getPendingQuotes(
+    params: IGetPendingQuoteParams
+  ): Promise<IPendingQuote[]>
 
   /**
    *
@@ -26,4 +28,9 @@ export abstract class QuoteWatchInteractor {
 export interface IPendingQuote {
   quote: IQuote
   submissionStatus: ISubmissionStatus
+}
+
+export interface IGetPendingQuoteParams {
+  serverId: string
+  authorBlacklist?: string[]
 }

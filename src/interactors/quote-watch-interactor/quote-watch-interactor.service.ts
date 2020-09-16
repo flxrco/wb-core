@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import {
   QuoteWatchInteractor,
   IPendingQuote,
+  IGetPendingQuoteParams,
 } from 'src/common/classes/interactors/quote-watch-interactor.class'
 import SubmissionRepository from 'src/common/classes/repositories/submission-repository.class'
 import InteractorError, {
@@ -42,8 +43,11 @@ export class QuoteWatchInteractorService extends QuoteWatchInteractor {
     })
   }
 
-  getPendingQuotes(serverId: string): Promise<IPendingQuote[]> {
-    return this.submitRepo.getPendingQuotes(serverId)
+  getPendingQuotes({
+    authorBlacklist,
+    serverId,
+  }: IGetPendingQuoteParams): Promise<IPendingQuote[]> {
+    return this.submitRepo.getPendingQuotes(serverId, authorBlacklist)
   }
 
   flagAsLost(messageId: string): Promise<IPendingQuote> {
