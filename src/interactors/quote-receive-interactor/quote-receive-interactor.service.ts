@@ -21,11 +21,14 @@ export class QuoteReceiveInteractorService extends QuoteReceiveInteractor {
   async receiveQuote(input: IReceiveQuoteInput): Promise<IRecieveQuoteOutput> {
     const quote = await this.quoteRepo.getRandomQuote(
       input.serverId,
-      input.authorId
+      input.authorId,
+      input.excludeAuthor
     )
+
     if (!quote) {
       throw new InteractorError(InteractorErrorCodes.NO_AVAILABLE_QUOTES)
     }
+
     const receive = await this.receiveRepo.createReceive(quote.quoteId, {
       ...input,
       receiveDt: new Date(),

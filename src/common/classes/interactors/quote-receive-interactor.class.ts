@@ -11,6 +11,7 @@ export interface IReceiveQuoteInput {
   messageId: string
   receiverId: string
   authorId?: string
+  excludeAuthor?: boolean
 }
 
 export interface IRecieveQuoteOutput {
