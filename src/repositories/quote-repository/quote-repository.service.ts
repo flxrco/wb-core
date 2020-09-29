@@ -16,7 +16,7 @@ export class QuoteRepositoryService extends QuoteRepository {
     return newQuote.toDto()
   }
 
-  async getRandomQuote(serverId: string, authorId?: string) {
+  async getRandomQuote(serverId: string, authorId?: string, exclude?: boolean) {
     const queryParams: any = {
       $or: [
         { submissionStatus: null },
@@ -30,8 +30,12 @@ export class QuoteRepositoryService extends QuoteRepository {
       serverId,
     }
 
-    if (authorId) {
+    if (authorId && !exclude) {
       queryParams.authorId = authorId
+    } else if (authorId && exclude) {
+      queryParams.authorId = {
+        $ne: authorId,
+      }
     }
 
     const count = await QuoteModel.countDocuments(queryParams).exec()

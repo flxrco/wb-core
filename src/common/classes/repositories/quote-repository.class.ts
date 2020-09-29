@@ -9,5 +9,9 @@ export default abstract class QuoteRepository {
    */
   abstract createQuote(quote: IBaseQuote): Promise<IQuote>
 
-  abstract getRandomQuote(serverId: string, authorId?: string): Promise<IQuote>
+  abstract getRandomQuote(
+    serverId: string,
+    authorId?: string,
+    exclude?: boolean
+  ): Promise<IQuote>
 }
